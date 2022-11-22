@@ -51,7 +51,7 @@
             <p v-show="formData.panelTxt">{{ formData.panelTxt }}</p>
           </div>
           <div class="input_item" v-if="formData.codeflag" @blur="regCode">
-            <input type="number" class="code" v-model="formData.code" placeholder="请输入手机验证码">
+            <input class="code" v-model="formData.code" placeholder="请输入手机验证码">
             <span @click="getCode" class="codebtn">{{ codeText }}</span>
             <p v-show="formData.codeTxt">{{ formData.codeTxt }}</p>
           </div>
