@@ -230,7 +230,8 @@
   //     callback();
   //   }
   // };
-  const baseURL = "http://47.94.116.164:8081"
+  const baseURL = "https://www.chinabidding.cn"
+  // const baseURL = "http://47.94.116.164:8081"
 
   const mobileRule = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
 
