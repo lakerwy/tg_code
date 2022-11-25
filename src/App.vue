@@ -51,7 +51,7 @@
             <p v-show="formData.panelTxt">{{ formData.panelTxt }}</p>
           </div>
           <div class="input_item" v-if="formData.codeflag" @blur="regCode">
-            <input class="code" v-model="formData.code" placeholder="请输入手机验证码">
+            <input type="number" class="code" v-model="formData.code" placeholder="请输入手机验证码">
             <span @click="getCode" class="codebtn">{{ codeText }}</span>
             <p v-show="formData.codeTxt">{{ formData.codeTxt }}</p>
           </div>
@@ -660,11 +660,12 @@
         // return temp;
       },
       tologin() {
-        if(window.location.href.indexOf("?")!=-1 && window.location.href.indexOf("gtype")!=-1){
-          window.location.href = "https://www.chinabidding.cn/public/adscreen/html/adLogin.html?"+window.location.href.split("?")[1];
-        }else{
-          window.location.href = "https://www.chinabidding.cn/public/adscreen/html/adLogin.html";
-        }
+        // if(window.location.href.indexOf("?")!=-1 && window.location.href.indexOf("gtype")!=-1){
+        //   window.location.href = "https://www.chinabidding.cn/public/adscreen/html/adLogin.html?"+window.location.href.split("?")[1];
+        // }else{
+        //   window.location.href = "https://www.chinabidding.cn/public/adscreen/html/adLogin.html";
+        // }
+        window.location.href = "https://m.chinabidding.cn/login";
       },
 
       regPhone() {
