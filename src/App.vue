@@ -1,3 +1,11 @@
+<!--
+ * @Author: 付柏磊
+ * @Date: 2022-12-13 08:47:08
+ * @LastEditors: 付柏磊
+ * @LastEditTime: 2022-12-13 08:47:44
+ * @Description: desc
+ -->
+
 <style lang="less">
   @import "./app.less";
 </style>
@@ -51,7 +59,7 @@
             <p v-show="formData.panelTxt">{{ formData.panelTxt }}</p>
           </div>
           <div class="input_item" v-if="formData.codeflag" @blur="regCode">
-            <input type="number" class="code" v-model="formData.code" placeholder="请输入手机验证码">
+            <input class="code" v-model="formData.code" placeholder="请输入手机验证码">
             <span @click="getCode" class="codebtn">{{ codeText }}</span>
             <p v-show="formData.codeTxt">{{ formData.codeTxt }}</p>
           </div>
@@ -230,8 +238,9 @@
   //     callback();
   //   }
   // };
-  const baseURL = "https://www.chinabidding.cn"
   // const baseURL = "http://47.94.116.164:8081"
+
+  const baseURL = "https://www.chinabidding.cn"
 
   const mobileRule = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
 
@@ -288,7 +297,8 @@
         utm_term: "defaut",
         utm_source: "default",
         utm_campaign: "default",
-        utm_content: "default"
+        utm_content: "default",
+        bd_vid: "default",
       }
     },
     methods: {
@@ -298,6 +308,11 @@
         this.utm_source = this.getUtmSource();
         this.utm_campaign =this.getUtmType("utm_campaign");
         this.utm_content =this.getUtmType("utm_content");
+        this.bd_vid = this.getUtmType("bd_vid");
+        let locationUrl = location.href;
+        if (locationUrl.indexOf("utm_term") !== -1 || locationUrl.indexOf("bd_vid") !== -1) {
+          localStorage.setItem("logidUrl", locationUrl)
+        }
         getRoute()
         if (sessionStorage.getItem("route")) {
           this.registerParmas = JSON.parse(sessionStorage.getItem("route"));
@@ -560,6 +575,12 @@
               }
             })
 
+            // let logidUrl = "https://m.chinabidding.cn/tg/index.html"  + "?bd_vid =" + this.bd_vid;
+            let logidUrl = "";
+            if (localStorage.getItem("logidUrl")){
+              logidUrl = localStorage.getItem("logidUrl");
+            }
+
             axios({
               method: 'post',
               url: baseURL + '/yuan/register/registernew/register',
@@ -577,7 +598,8 @@
                 utm_content: convert1(this.utm_content),
                 keyWords: convert1(this.registerParmas.s_txt),
                 visit_source: convert1(this.registerParmas.s_url),
-                sem: 'sem'
+                sem: 'sem',
+                logidUrl: convert1(logidUrl)
               }),
             }).then(res => {
               if (res.data.code === 201) {
@@ -604,7 +626,7 @@
           }
         }else{  //校验2个
           if(this.regPhone() && this.regPanel()) {
-            return 
+            return
           }
         }
       },
@@ -665,7 +687,7 @@
         // }else{
         //   window.location.href = "https://www.chinabidding.cn/public/adscreen/html/adLogin.html";
         // }
-        window.location.href = "https://m.chinabidding.cn/login";
+        window.location.href = "https://m.chinabidding.cn/login?url=/";
       },
 
       regPhone() {
@@ -693,9 +715,15 @@
         }
       },
       regCode() {
+        let reg = /^[A-Za-z0-9]+$/;
         if(this.formData.code){
-          this.formData.codeTxt = ""
-          return true
+          if(reg.test(this.formData.code)) {
+            this.formData.codeTxt = ""
+            return true
+          } else {
+            this.formData.codeTxt = "验证码错误，请重新输入"
+            return false
+          }
         }else{
           this.formData.codeTxt = "请输入手机验证码"
           return false
