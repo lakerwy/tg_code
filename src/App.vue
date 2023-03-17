@@ -755,7 +755,7 @@
         }
       },
       regCompany() {
-        let reg = /^[0-9A-Za-z\u4E00-\u9FFF]+$/;
+        let reg = /^[0-9A-Za-z\u4E00-\u9FFF（）()]+$/;
         if(this.formData.company){
           if(this.formData.company.length>=4) {
             if(this.formData.company.length<=50) {
