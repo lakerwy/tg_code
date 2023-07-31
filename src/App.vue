@@ -300,6 +300,7 @@
         utm_content: "default",
         utm_keyid: "default",
         bd_vid: "default",
+        qhclickid: "default",
       }
     },
     methods: {
@@ -311,6 +312,7 @@
         this.utm_content =this.getUtmType("utm_content");
         this.utm_keyid =this.getUtmType("utm_keyid");
         this.bd_vid = this.getUtmType("bd_vid");
+        this.qhclickid = this.getUtmType("qhclickid");
         let locationUrl = location.href;
         if (locationUrl.indexOf("utm_term") !== -1 || locationUrl.indexOf("bd_vid") !== -1) {
           localStorage.setItem("logidUrl", locationUrl)
@@ -599,6 +601,7 @@
                 utm_campaign: convert1(this.utm_campaign),
                 utm_content: convert1(this.utm_content),
                 utm_keyid: convert1(this.utm_keyid),
+                qhclickid: convert1(this.qhclickid),
                 keyWords: convert1(this.registerParmas.s_txt),
                 visit_source: convert1(this.registerParmas.s_url),
                 sem: 'sem',
